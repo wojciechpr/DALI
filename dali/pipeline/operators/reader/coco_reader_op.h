@@ -118,6 +118,10 @@ class COCOReader : public DataReader<CPUBackend> {
         int category_id = GET_FROM_JSON(an, category_id, int);
         std::vector<float> bbox = GET_FROM_JSON(an, bbox, std::vector<float>);
 
+        if (bbox[2] < 0.1 || bbox[3] < 0.1) {
+          continue;
+        }
+
         if (ltrb_) {
           bbox[2] += bbox[0];
           bbox[3] += bbox[1];
